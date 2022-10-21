@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+  <!-- ############################################### -->
+  <!-- Add false positives or other suppressions here. -->
+  <!-- ############################################### -->
+
+  <suppress>
+    <notes><![CDATA[
+   https://github.com/spring-projects/spring-framework/issues/24434
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.springframework/spring\-.*$</packageUrl>
+    <cve>CVE-2016-1000027</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   https://bitbucket.org/snakeyaml/snakeyaml/issues/531/
+   https://bitbucket.org/snakeyaml/snakeyaml/issues/546/
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org.yaml/snakeyaml@1.*$</packageUrl>
+    <vulnerabilityName>CVE-2022-38752</vulnerabilityName>
+  </suppress>
+</suppressions>

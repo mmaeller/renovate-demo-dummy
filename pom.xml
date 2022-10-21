@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.7.4</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>de.maeller</groupId>
+  <artifactId>renovate-demo-dummy</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>renovate-demo-dummy</name>
+  <description>Demo project to demonstrate basic renovate features.</description>
+
+  <properties>
+    <dependency-check-maven.skip>true</dependency-check-maven.skip>
+    <dependency-check-maven.version>7.3.0</dependency-check-maven.version>
+    <java.version>17</java.version>
+    <snakeyaml.version>1.33</snakeyaml.version>
+    <spotless-maven-plugin.version>2.27.0</spotless-maven-plugin.version>
+    <springdoc-openapi-ui.version>1.6.11</springdoc-openapi-ui.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc-openapi-ui.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>${dependency-check-maven.version}</version>
+        <configuration>
+          <cveValidForHours>24</cveValidForHours>
+          <failBuildOnCVSS>1</failBuildOnCVSS>
+          <suppressionFiles>
+            <suppressionFile>owasp-suppressions.xml</suppressionFile>
+          </suppressionFiles>
+          <skip>${dependency-check-maven.skip}</skip>
+          <!-- Deactivate irrelevant analyzers. -->
+          <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+          <bundleAuditAnalyzerEnabled>false</bundleAuditAnalyzerEnabled>
+          <msbuildAnalyzerEnabled>false</msbuildAnalyzerEnabled>
+          <nexusAnalyzerEnabled>false</nexusAnalyzerEnabled>
+          <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
+          <nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled>
+          <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
+          <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+          <yarnAuditAnalyzerEnabled>false</yarnAuditAnalyzerEnabled>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotless-maven-plugin.version}</version>
+        <configuration>
+          <formats>
+            <format>
+              <endWithNewline/>
+              <trimTrailingWhitespace/>
+              <!-- Format file types below -->
+              <includes>
+                <include>**/*.yml</include>
+                <include>**/*.yaml</include>
+                <include>src/main/**/*.json</include>
+                <include>src/main/**/*.xml</include>
+              </includes>
+            </format>
+          </formats>
+          <java>
+            <googleJavaFormat/>
+            <endWithNewline/>
+            <trimTrailingWhitespace/>
+          </java>
+          <pom>
+            <sortPom>
+              <predefinedSortOrder>custom_1</predefinedSortOrder>
+              <expandEmptyElements>false</expandEmptyElements>
+              <sortProperties>true</sortProperties>
+              <sortDependencies>scope</sortDependencies>
+            </sortPom>
+          </pom>
+          <upToDateChecking>
+            <enabled>true</enabled>
+          </upToDateChecking>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

@@ -21,7 +21,13 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: maven
+    - name: Maven cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.m2
+          ~/repository
+        key: one-key-to-rule-them-all
     - name: Build
       run: mvn -B package
     - name: OWASP depenency check

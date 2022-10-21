@@ -28,5 +28,5 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
     - name: Build
       run: mvn -B package
-    - name: OWASP depenency check
+    - name: OWASP dependency check
       run: mvn -B dependency-check:check -Ddependency-check-maven.skip=false

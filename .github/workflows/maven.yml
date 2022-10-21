@@ -24,10 +24,8 @@ jobs:
     - name: Maven cache
       uses: actions/cache@v3
       with:
-        path: |
-          ~/.m2
-          ~/repository
-        key: one-key-to-rule-them-all
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
     - name: Build
       run: mvn -B package
     - name: OWASP depenency check
